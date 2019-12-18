@@ -22,6 +22,9 @@ export default class TextInputField extends Component {
     return (
       <ListItem style={{ borderBottomWidth: 0, paddingVertical: 5 }}>
         <View style={{ flex: 1 }}>
+            <View {...inputProps.labelContainerProps}>
+                <Text {...inputProps.labelTextProps}>{attributes.label}</Text>
+            </View>
           <View>
             <Item error={theme.changeTextInputColorOnError ? attributes.error : null}>
               { attributes.icon &&
@@ -36,7 +39,7 @@ export default class TextInputField extends Component {
                 underlineColorAndroid="transparent"
                 numberOfLines={3}
                 secureTextEntry={attributes.secureTextEntry || attributes.type === 'password'}
-                placeholder={attributes.label}
+                placeholder={attributes.placeholder}
                 blurOnSubmit={false}
                 onSubmitEditing={() => this.props.onSummitTextInput(this.props.attributes.name)}
                 placeholderTextColor={theme.inputColorPlaceholder}
