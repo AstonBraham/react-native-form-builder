@@ -21,18 +21,15 @@ export default class TextInputField extends Component {
         const {theme, attributes, ErrorComponent} = this.props;
         const inputProps = attributes.props;
         const keyboardType = getKeyboardType(attributes.type);
-        // const {labelContainerProps, labelTextProps} = inputProps;
         return (
-            <ListItem style={{paddingBottom: 0, paddingTop: 5, paddingVertical: 5}}>
+            <ListItem style={{paddingBottom: 0, paddingTop: 5, paddingVertical: 5, borderBottomWidth: 0,}}>
                 <View style={{flex: 1,}}>
-                    {/* <View {...labelContainerProps}>
-                <Text style={{color: theme.labelActiveColor, textAlign: 'center', textTransform: 'uppercase'}} {...labelTextProps}>{attributes.label}</Text>
-            </View> */}
                     <View style={{marginBottom: -10}}>
                         <Text style={{
                             color: theme.labelActiveColor,
                             textAlign: 'center',
-                            textTransform: 'uppercase'
+                            textTransform: 'uppercase',
+                            fontSize: theme.labelFontSize,
                         }}>{attributes.label}</Text>
                     </View>
                     <View>
@@ -62,6 +59,7 @@ export default class TextInputField extends Component {
                                 value={attributes.value && attributes.value.toString()}
                                 keyboardType={keyboardType}
                                 onChangeText={text => this.handleChange(text)}
+                                selectionColor={theme.selectionColor}
                                 {...inputProps}
                             />
                             {theme.textInputErrorIcon && attributes.error ?
