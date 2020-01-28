@@ -21,8 +21,9 @@ export default class TextInputField extends Component {
         const {theme, attributes, ErrorComponent} = this.props;
         const inputProps = attributes.props;
         const keyboardType = getKeyboardType(attributes.type);
+        const {style} = inputProps;
         return (
-            <ListItem style={{paddingBottom: 0, paddingTop: 5, paddingVertical: 5, borderBottomWidth: 0,}}>
+            <ListItem style={{paddingBottom: 0, paddingTop: 5, paddingVertical: 5, borderBottomWidth: 0}}>
                 <View style={{flex: 1,}}>
                     <View style={{marginBottom: -10}}>
                         <Text style={{
@@ -33,18 +34,24 @@ export default class TextInputField extends Component {
                         }}>{attributes.label}</Text>
                     </View>
                     <View>
-                        <Item style={{paddingTop: 0,}}
+                        <Item style={{paddingTop: 0,borderBottomWidth: 0,marginBottom: -6}}
                               error={theme.changeTextInputColorOnError ? attributes.error : null}>
                             {attributes.icon &&
                             <Icon style={{color: theme.textInputIconColor}} name={attributes.icon}/>
                             }
                             <Input
-                                style={{
-                                    height: inputProps && inputProps.multiline && (Platform.OS === 'ios' ? undefined : null),
-                                    padding: 0, borderBottomWidth: 0,
-                                    textAlign: 'right',
-                                    flex: 1,
-                                }}
+                                {...inputProps}
+                                style={[
+                                    {
+                                        height: inputProps && inputProps.multiline && (Platform.OS === 'ios' ? undefined : null),
+                                        padding: 0, borderBottomWidth: 0,
+                                        textAlign: 'right',
+                                        flex: 1,
+                                        fontSize: theme.inputFontSize,
+                                        marginVertical: 7,
+                                    },
+                                    style
+                                ]}
                                 ref={(c) => {
                                     this.textInput = c;
                                 }}
@@ -60,7 +67,6 @@ export default class TextInputField extends Component {
                                 keyboardType={keyboardType}
                                 onChangeText={text => this.handleChange(text)}
                                 selectionColor={theme.selectionColor}
-                                {...inputProps}
                             />
                             {theme.textInputErrorIcon && attributes.error ?
                                 <Icon name={theme.textInputErrorIcon}/> : null}
