@@ -49,6 +49,7 @@ export default class TextInputField extends Component {
                                         flex: 1,
                                         fontSize: theme.inputFontSize,
                                         marginVertical: 7,
+                                        paddingVertical: Platform.OS === 'ios' ? 10 : 7,
                                     },
                                     style
                                 ]}
