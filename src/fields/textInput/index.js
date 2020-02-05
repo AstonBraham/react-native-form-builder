@@ -40,6 +40,7 @@ export default class TextInputField extends Component {
                             <Icon style={{color: theme.textInputIconColor}} name={attributes.icon}/>
                             }
                             <Input
+                                keyboardType={keyboardType}
                                 {...inputProps}
                                 style={[
                                     {
@@ -65,7 +66,6 @@ export default class TextInputField extends Component {
                                 placeholderTextColor={theme.inputColorPlaceholder}
                                 editable={attributes.editable}
                                 value={attributes.value && attributes.value.toString()}
-                                keyboardType={keyboardType}
                                 onChangeText={text => this.handleChange(text)}
                                 selectionColor={theme.selectionColor}
                             />
