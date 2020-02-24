@@ -365,9 +365,15 @@ export default class FormBuilder extends Component {
   }
   render() {
     return (
-      <View>
-        {this.generateFields() || <View />}
-      </View>
+      <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="always"
+          extraScrollHeight={20}
+          {...this.props.scrollViewProps}
+      >
+        <View>
+          {this.generateFields() || <View />}
+        </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
