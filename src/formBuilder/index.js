@@ -28,6 +28,7 @@ export default class FormBuilder extends Component {
   static propTypes = {
     fields: PropTypes.array,
     theme: PropTypes.object,
+    style: PropTypes.object,
     scrollViewProps: PropTypes.object,
     customComponents: PropTypes.object,
     formData: PropTypes.object,
