@@ -1,81 +1,46 @@
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
-import {View, Item, Input, Icon, ListItem, Text} from 'native-base';
-import {Platform} from 'react-native';
-import {getKeyboardType} from '../../utils/methods';
+import React, { Component } from 'react';
+import { View, Text, Switch } from 'native-base';
 
-export default class TextInputField extends Component {
+export default class SwitchField extends Component {
     static propTypes = {
         attributes: PropTypes.object,
         theme: PropTypes.object,
         updateValue: PropTypes.func,
-        onSummitTextInput: PropTypes.func,
         ErrorComponent: PropTypes.func,
     }
-
-    handleChange(text) {
-        this.props.updateValue(this.props.attributes.name, text);
+    handleChange(value) {
+        this.props.updateValue(this.props.attributes.name, value);
     }
-
     render() {
-        const {theme, attributes, ErrorComponent} = this.props;
-        const inputProps = attributes.props;
-        const keyboardType = getKeyboardType(attributes.type);
-        const {style} = inputProps;
+        const { attributes, theme, ErrorComponent } = this.props;
         return (
-            <ListItem style={{paddingBottom: 0, paddingTop: 5, paddingVertical: 5, borderBottomWidth: 0}}>
-                <View style={{flex: 1,}}>
-                    <View style={{marginBottom: -10}}>
-                        <Text style={{
-                            color: theme.labelActiveColor,
-                            textAlign: 'center',
-                            textTransform: 'uppercase',
-                            fontSize: theme.labelFontSize,
-                        }}>{attributes.label}</Text>
-                    </View>
-                    <View>
-                        <Item style={{paddingTop: 0,borderBottomWidth: 0,marginBottom: -6}}
-                              error={theme.changeTextInputColorOnError ? attributes.error : null}>
-                            {attributes.icon &&
-                            <Icon style={{color: theme.textInputIconColor}} name={attributes.icon}/>
-                            }
-                            <Input
-                                keyboardType={keyboardType}
-                                {...inputProps}
-                                style={[
-                                    {
-                                        height: inputProps && inputProps.multiline && (Platform.OS === 'ios' ? undefined : null),
-                                        padding: 0, borderBottomWidth: 0,
-                                        textAlign: 'right',
-                                        flex: 1,
-                                        fontSize: theme.inputFontSize,
-                                        marginVertical: 7,
-                                        paddingVertical: Platform.OS === 'ios' ? 10 : 7,
-                                    },
-                                    style
-                                ]}
-                                ref={(c) => {
-                                    this.textInput = c;
-                                }}
-                                underlineColorAndroid="transparent"
-                                numberOfLines={1}
-                                secureTextEntry={attributes.secureTextEntry || attributes.type === 'password'}
-                                placeholder={attributes.placeholder}
-                                blurOnSubmit={false}
-                                onSubmitEditing={() => this.props.onSummitTextInput(this.props.attributes.name)}
-                                placeholderTextColor={theme.inputColorPlaceholder}
-                                editable={attributes.editable}
-                                value={attributes.value && attributes.value.toString()}
-                                onChangeText={text => this.handleChange(text)}
-                                selectionColor={theme.selectionColor}
-                            />
-                            {theme.textInputErrorIcon && attributes.error ?
-                                <Icon name={theme.textInputErrorIcon}/> : null}
-                        </Item>
-                    </View>
-                    <ErrorComponent {...{attributes, theme}} />
+            <View>
+                <View
+                    style={{
+                        backgroundColor: theme.pickerBgColor,
+                        borderBottomColor: theme.inputBorderColor,
+                        borderBottomWidth: theme.borderWidth,
+                        marginHorizontal: 10,
+                        marginVertical: 0,
+                        paddingVertical: 10,
+                        marginLeft: 15,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <Text style={{ color: theme.labelActiveColor }}>{attributes.label}</Text>
+                    <Switch
+                        onTintColor={'blue'}
+                        onValueChange={value => this.handleChange(value)}
+                        value={attributes.value}
+                    />
                 </View>
-            </ListItem>
+                <View style={{ paddingHorizontal: 15 }}>
+                    <ErrorComponent {...{ attributes, theme }} />
+                </View>
+            </View>
         );
     }
 }

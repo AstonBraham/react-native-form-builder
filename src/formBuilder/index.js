@@ -289,6 +289,7 @@ export default class FormBuilder extends Component {
         const commonProps = {
           key: index,
           theme,
+          style,
           attributes: this.state.fields[field.name],
           updateValue: this.onValueChange,
           ErrorComponent: errorComponent || DefaultErrorComponent,
